@@ -10,11 +10,12 @@ let todoListSlice = createSlice({
     deleteTodo: (state, action) => {
       state.splice(action.payload, 1);
     },
-    reviseTodo: (state, action) => {
-      state[action.payload].text = action.payload;
+    editTodo: (state, action) => {
+      const { index, newText } = action.payload;
+      state[index].text = newText;
     },
   },
 });
 
-export const { addTodo, deleteTodo } = todoListSlice.actions;
+export const { addTodo, deleteTodo, editTodo } = todoListSlice.actions;
 export default todoListSlice.reducer;
