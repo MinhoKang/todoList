@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodo, editTodo } from '../store/todoList';
+import { deleteTodo, editTodo, toggleComplete } from '../store/todoList';
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
-  const todoList = useSelector((state) => state.todoList);
+  const todoList = useSelector((state) => state.todoList.list);
   const itemIndex = todoList.findIndex((listItem) => listItem === todo);
   const [text, setText] = useState(todo.text);
   const [isRevise, setIsRevise] = useState(false);
@@ -28,6 +28,9 @@ const TodoItem = ({ todo }) => {
     dispatch(editTodo({ index: itemIndex, newText: text }));
     setIsRevise(false);
   };
+  const handleComplete = () => {
+    dispatch(toggleComplete(itemIndex));
+  };
   return (
     <div>
       {!isRevise ? (
@@ -35,6 +38,7 @@ const TodoItem = ({ todo }) => {
           <li>{todo.text}</li>
           <button onClick={handleDelete}>X</button>
           <button onClick={reviseTodo}>수정하기</button>
+          <input type="checkbox" checked={todo.isComplete} onChange={handleComplete} />
         </div>
       ) : (
         <div>

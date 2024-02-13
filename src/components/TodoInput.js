@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../store/todoList';
+import { addTodo, toggleFilter } from '../store/todoList';
 
 const TodoInput = () => {
   const [inputValue, setInputValue] = useState('');
   console.log(inputValue);
   const dispatch = useDispatch();
-  const setTodo = useSelector((state) => state.todoList);
+
+  const nowFilter = useSelector((state) => state.todoList.filter);
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -26,9 +27,10 @@ const TodoInput = () => {
       alert('내용을 입력하세요');
     }
     setInputValue('');
-    console.log(setTodo);
+
+    dispatch(toggleFilter(nowFilter));
   };
-  
+
   return (
     <div>
       <input type="text" value={inputValue} onChange={handleChange} />

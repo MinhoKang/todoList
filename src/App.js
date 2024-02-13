@@ -1,11 +1,15 @@
 import './App.css';
 import styled from 'styled-components';
 import TodoInput from './components/TodoInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TodoItem from './components/TodoItem';
+import Filter from './components/Filter';
+import { useEffect } from 'react';
 
 function App() {
-  const todoList = useSelector((state) => state.todoList);
+  const todoList = useSelector((state) => state.todoList.showList);
+  const dispatch = useDispatch();
+
   return (
     <Container>
       <div>
@@ -18,6 +22,7 @@ function App() {
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
+      <Filter />
     </Container>
   );
 }
