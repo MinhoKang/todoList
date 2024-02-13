@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import TodoInput from './components/TodoInput';
+import { useSelector } from 'react-redux';
+import TodoItem from './components/TodoItem';
 
 function App() {
+  const todoList = useSelector((state) => state.todoList);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <div>
+        <h2>투두리스트</h2>
+        <TodoInput />
+      </div>
+      <h2>List</h2>
+      <ul>
+        {todoList.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+      </ul>
+    </Container>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  display: flex;
+`;
