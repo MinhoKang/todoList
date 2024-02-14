@@ -25,7 +25,7 @@ let todoListSlice = createSlice({
     toggleComplete: (state, action) => {
       const itemIndex = state.list.findIndex((listItem) => listItem.id === action.payload);
       state.list[itemIndex].isComplete = !state.list[itemIndex].isComplete;
-      state.showList[itemIndex].isComplete = !state.showList[itemIndex].isComplete;
+      state.showList = [...state.list]
     },
     toggleFilter: (state, action) => {
       state.filter = action.payload;
